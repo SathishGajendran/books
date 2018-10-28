@@ -1,0 +1,46 @@
+Mongo
+
+Document  databese
+data is stored in Json format
+json supports 6 datatypes string"", number, boolean, array[], object{}, null
+
+BSON : binary Json (mongo uses this format) : BSON supports more datatypes(double , 32 bit integer, 64 bit integer, regex,timestamp, date, objectid) number datatype is not present in bson
+extended json is used to convert json to bson and vice versa.two modes of operation : shell and strict
+in shell mode datatypes are mentioned before the value in the key value pair whereas in strict mode value of the key value pair contains an embedded object whose key is datatype prepended with $
+and then contains the value
+strict mode fully conforms to json 
+
+database ->database
+collections -> tables
+documents -> rows
+fields-> columns
+
+by default mongo creates two databases admin and local
+
+mongo installation : mongo server: mongod
+mongo shell :mongo
+mongodump, mongorestore, mongostat,mongoimport,mongoexport
+to connect ot mongodb server from another server we have to use drivers
+
+mongo GUI : mongo compass, robo3t
+
+to verify which js engine is used interpreterversion() to check for shell and db.serverbuildinfo() to verify the server side information
+
+create database : use dbname
+list of database : show dbs
+currently used database : db
+dropping a database : db_name.dropDatabase()
+
+createcollection : db_name.createCollection(name, Options)
+db.createCollection("mycol", { capped : true, autoIndexId : true, size : 
+   6142800, max : 10000 } )
+   Field	Type	Description
+capped	Boolean	(Optional) If true, enables a capped collection. Capped collection is a fixed size collection that automatically overwrites its oldest entries when it reaches its maximum size. If you specify true, you need to specify size parameter also.
+autoIndexId	Boolean	(Optional) If true, automatically create index on _id field.s Default value is false.
+size	number	(Optional) Specifies a maximum size in bytes for a capped collection. If capped is true, then you need to specify this field also.
+max	number	(Optional) Specifies the maximum number of documents allowed in the capped collection.
+
+inserting a document(row) automatically creates a collection(table)
+
+
+

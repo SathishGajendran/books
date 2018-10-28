@@ -1,0 +1,62 @@
+Transpilers, or source-to-source compilers, are tools that read source code written in one programming language, and produce the equivalent code in another language. Languages you write that transpile to JavaScript are often called compile-to-JS languages, and are said to target JavaScript.
+
+Compiled TypeScript can be consumed from any JavaScript code. TypeScript-generated JavaScript can reuse all of the existing JavaScript frameworks, tools, and libraries
+
+The TypeScript transpiler provides the error-checking feature. TypeScript will compile the code and generate compilation errors, if it finds some sort of syntax errors. This helps to highlight errors before the script is run.
+JavaScript is not strongly typed. TypeScript comes with an optional static typing and type inference system through the TLS (TypeScript Language Service). The type of a variable, declared with no type, may be inferred by the TLS based on its value.
+ static typed languages are those in which type checking is done at compile-time, whereas dynamic typed languages are those in which type checking is done at run-time.
+ 
+  A TypeScript program is composed of −
+
+Modules
+Functions
+Variables
+Statements and Expressions
+Comments
+
+Identifiers are names given to elements in a program like variables, functions etc
+Identifiers can include both, characters and digits. However, the identifier cannot begin with a digit.
+
+Identifiers cannot include special symbols except for underscore (_) or a dollar sign ($).
+
+Object − An object is a real time representation of any entity. According to Grady Brooch, every object must have three features −
+
+State − described by the attributes of an object
+
+Behavior − describes how the object will act
+
+Identity − a unique value that distinguishes an object from a set of similar such objects.
+TypeScript supports type definitions for existing JavaScript libraries. TypeScript Definition file (with .d.ts extension) provides definition for external JavaScript libraries. Hence, TypeScript code can contain these libraries.
+When a TypeScript script gets compiled, there is an option to generate a declaration file (with the extension .d.ts) that functions as an interface to the components in the compiled JavaScript.
+any data type is the super type of all types in TypeScript. It denotes a dynamic type. Using the any type is equivalent to opting out of type checking for a variable.
+
+number, string, boolean,void,null,undefined(Denotes value given to all uninitialized variables)
+there is no integer type in js
+
+null and undefined are not the same. A variable initialized with undefined means that the variable has no value or object assigned to it
+ while null means that the variable has been set to an object whose value is undefined.
+ 
+ A variable, by definition, is “a named space in the memory” that stores values. 
+ 
+ TypeScript allows changing a variable from one type to another. TypeScript refers to this process as Type Assertion .. put the target type in <  >
+ 
+ the reason why it's not called "type casting" is that casting generally implies some sort of runtime support while, “type assertions” are purely a compile time construct and a way for you to provide hints to the compiler on how you want your code to be analyzed.
+ 
+ Inferred Typing  is the optional feature of typescript which encourages to declare varible without datatype
+ 
+ typeof operator
+ The use of instanceof operator is discussed in the chapter classes.
+
+ loops are of two types definite(for) and indefinite(while and do while)
+ A loop whose number of iterations are definite/fixed is termed as a definite loop
+ 
+
+ 
+ The scope of a variable specifies where the variable is defined. three scopes are there
+ 
+ Global Scope − Global variables are declared outside the programming constructs. These variables can be accessed from anywhere within your code.
+
+Class Scope − These variables are also called fields. Fields or class variables are declared within the class but outside the methods. These variables can be accessed using the object of the class. Fields can also be static. Static fields can be accessed using the class name.
+
+Local Scope − Local variables, as the name suggests, are declared within the constructs like methods, loops etc. Local variables are accessible only within the construct where they are declared.
+

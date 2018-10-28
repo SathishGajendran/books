@@ -1,0 +1,198 @@
+php 
+Class is a programmer-defined data type, which includes local methods and local variables.
+objects are instances of class that contains methods and variables
+Overloading is defining functions that have similar signatures, yet have different parameters
+Overriding is only pertinent to derived classes, where the parent class has defined a method and the derived class wishes to override that method.
+Overloading properties via the __get(), __set(), __isset() and __unset() methods
+Overloading methods via the __call() and __callStatic() methods
+
+		<?php
+
+		class Shape {
+		const PI = 3.142 ;
+
+		function __call($name,$arg){
+			if($name == 'area')
+				switch(count($arg)){
+					case 0 : return 0 ;
+					case 1 : return self::PI * $arg[0] ;
+					case 2 : return $arg[0] * $arg[1];
+				}
+			}
+		}
+		$circle = new Shape();
+		echo $circle->area(5);
+
+
+		$rect = new Shape();
+		echo $rect->area(5,10);
+		
+Overloading in PHP provides means to dynamically "create" properties and methods. These dynamic entities are processed via magic methods one can establish in a class for various action types.
+
+An Interface is kind of like a class, although you can’t use it directly, classes must implement them. Think of it as a prototype or a blueprint of a class
+All methods declared in an interface must be public; this is the nature of an interface.
+All methods in the interface must be implemented within a class; failure to do so will result in a fatal error.
+The class implementing the interface must use the exact same method signatures as are defined in the interface
+Interfaces can be extended like classes using the extends operator.
+
+An abstract class is like a normal class, except that you cannot instantiate them, you must extend them first then instantiate. 
+Your abstract classes can have data members and function calls (and their functionality).
+
+An abstract class is like a normal class, except that you cannot instantiate them, you must extend them first then instantiate. Your abstract classes can have data members and function calls (and their functionality).
+ The abstract method is function declaration without anybody and it has the only name of the method and its parameters.
+ If the abstract method is defined as protected in the parent class, the function implementation must be defined as either protected or public, but not private.
+ 
+When we start to extend classes, and add functionality to them which wasn’t there previously, and even override existing methods (functions), this is called polymorphism
+An abstract class is a mix between an interface and a class. It can define functionality as well as interface (in the form of abstract methods). Classes extending an abstract class must implement all of the abstract methods defined in the abstract class.
+
+An abstract class is declared the same way as classes with the addition of the 'abstract' keyword:
+abstract class MyAbstract {
+    public $name;
+    public function doThis() {
+        // do this
+    }
+    abstract public function doThat();
+    abstract public function setName($name);
+}
+classes in this tutorial use the naming convention of "package_component_Class
+
+Use $this to refer to the current object. Use self to refer to the current class.
+ In other words, use  $this->member for non-static members, use self::$member for static members.
+ 
+ it is useful if we can access methods and properties in the context of a class rather than an object. To do this, you can use static keyword.
+ static methods and properties can be accessed without instansiating the class
+ 
+ we are copying objects by using PHP clone keyword. PHP’s clone method does a shallow copy and so, any changes made in the cloned object will not affect original object.
+
+__clone is a magic method in PHP. Magic methods are predefined in PHP and starts with “__” (double underscore). They are executed in response to some events in PHP. 
+A Shallow Copy copies duplicates as little as possible. A Shallow Copy copies all the values and references into a new instance. In a Shallow Copy any change of a reference member affects both the methods.
+
+In a Deep Copy everything is duplicated and all values are copied into a new instance. In this case all members are stored as a reference. When there are pointers, new pointers are created to the new data. Any changes of references will not affect the
+referenced object of other copies of the object. Fully replicated objects are deep copied. In PHP the "Copy" keyword is performed as a Shallow Copy by default.
+ In PHP5 all objects are assigned by reference. It calls the object's "__clone()" method.
+ 
+ trait traitName
+{
+    public function functionName($params)
+    {
+         // Code
+    }
+}
+
+trait Base
+{
+    public function say($word)
+    {
+        echo "Say".$word;
+    }
+}
+class sayHello
+{
+    use Base;
+}
+class sayWorld
+{
+    use Base;
+}
+$objSayHello = new sayHello();
+$objSayHello->say("Hello!!!<br>");
+$objSayWorld = new sayWorld();
+$objSayWorld->say("World!!!");
+
+A Trait provides a way to “reuse” code during run time. We can say that Trait provides a way to “copy and paste” the code. So by using the class objects we can use functions which are defined in Trait.
+
+class BaseClass
+{
+     public function sayHelloWorld()
+     {
+         echo 'Hello ';
+     }
+}
+trait SayWorld
+{
+    public function sayHelloWorld()
+    {
+        parent::sayHelloWorld();
+        echo 'World!';
+    }
+}
+class derivedClass extends BaseClass
+{
+    use SayWorld;
+}
+$obj = new derivedClass();
+$obj->sayHelloWorld(); //output hello world
+We can use an abstract method in traits. If we declared an abstract method in traits, the class  which use that trait must have to implement that method. This is the same concept as the
+ abstract class and abstract method.
+
+trait first_trait
+{
+    function methodOne() { echo "method1"; }
+    // any class which use this trait must
+    // have to implement below method.
+    abstract public function methodSecond();
+}
+class methodOne
+{
+    use first_trait;
+   function methodSecond()
+   {
+       /* Code Here */
+   }
+}
+
+Suppose you have created two different traits which contain same function name. In this particular case you will get an error like “Fatal error: Cannot redeclare function error”.
+
+The trait has one operator which will help us to avoid this kind of scenario. This can be done using insteadof operator.
+
+Syntax:
+class className
+{
+   use first_trait, second_trait
+   {
+      // This class will now call the method
+      // first function from first_trait only
+      first_trait::first_function insteadof second_trait;
+   }
+}
+
+we can use as operator for rescue to use methods of same name from different traits. This operator maintains the aliasing.
+
+trait RegisterUser
+{
+   function login()
+   {
+      echo "RegisterUser Login";
+   }
+}
+trait Admin
+{
+   function login()
+   {
+      echo "Admin Login";
+   }
+}
+class Users
+{
+    use RegisterUser, Admins
+    {
+       RegisterUser::login insteadof Admin;
+       Admin::login as login;
+    }
+}
+$obj = new Users();
+// Output: From First Trait
+$obj->login();
+
+PHP 5 introduces the final keyword, which prevents child classes from overriding a method by prefixing the definition with final. 
+If the class itself is being defined final then it cannot be extended.
+PHP will not let a method be overridden by a child class if that method is declared as final
+
+ A closure is a function that retains access to the variables in its enclosing scope, even if that scope has since disappeared.
+
+ 
+ A Lambda is an anonymous function that can be assigned to a variable or passed to another function as an argument. 
+ Lambdas are useful because they are throw away functions that you can use once. Often, you will need a function to do a job, but it doesn’t make 
+ sense to have it within the global scope or to even make it available as part of your code. Instead of having a function used once and then left lying around, you can use a Lambda instead.
+ 
+ A Closure is essentially the same as a Lambda apart from it can access variables outside the scope that it was created.

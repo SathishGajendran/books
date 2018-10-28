@@ -1,0 +1,49 @@
+Big o notation
+how vtime scales with respect to different input variables
+1. different steps get added
+2. drop constants
+3. different inputs = different variables
+4. Drop non dominant terms
+
+<div class="text-xlg">
+<br>
+Choosing a certification may seem simple but rushing your selection could waste time and money. There are two Questions you should consider when making your choice.
+<br><br>
+1. What do you want to accomplish?
+<br><br>
+IF your answer is to start the career as an entry level engineer in any software company with a decent pay then you should opt for SEA.
+On the other hand if you are aiming for a high paying job DEveloper job then you should go for SDA. As it validates the technical skills required by a software developer
+If you’re focused on career progression, refreshing your tech skills is a must, especially considering all of the IT advancements in fields such as cloud computing, security,etc. 
+Additional certifications like SDE are often required to advance into new job roles. Getting certified can help you get promoted and lead to a more satisfying career.
+<br><br>
+2. In which step of the career ladder are you in?
+    <br>
+Are you just getting started? Begin with foundational certifications to learn how to speak and understand the language of the IT industry. SEA being a foundational certification helps you to validate your 
+technical skill and gives you precedence over anybody else in terms of technical concepts.
+Are you getting started but need something more to prove your technical proficiency? Opt for Tech Talks India certified  SDA credential that paves the way for your entry into most prestigious companies in India as 
+Software Developer.
+If you’re particularly passionate about a unique skillset, then opt for SDE as it can prove your technical proficiency as well as your application proficiency in that domain. .
+<br><br>
+Still not sure????? We are here to help you. Please fill up the form and we will suggest a proper certification for you.
+    <br><br>
+</div>
+
+Why should I choose right certification? Can't I choose any certification? How should you choose perfect certification? --- Write about choosing the right certification --- Why? and How?
+
+Right certification helps to boost your career and pave the way for smooth career development. If anybody wants to start the career as an entry level engineer in any software company with a decent pay then you should opt for SEA.
+On the other hand if you are aiming for a high paying job DEveloper job then you should go for SDA. As it validates the technical skills required by a software developer
+If you’re focused on career progression, refreshing your tech skills is a must, especia
+lly considering all of the IT advancements in fields such as cloud computing, security,etc. 
+Additional certifications like SDE are often required to advance into new job roles.
+Still not sure????? We are here to help you. Please fill up the form and we will suggest a proper certification for you.
+
+Please selct your experience 0 1 2 3 4 -> if 1>=
+is the experience in SOFTWARE INDUSTRY	
+work profile Software development engineer, Voice based IT support,Technical IT support, Network Administrator, Manual Quality Analyst, Automation Quality Analyst, Tools Specialist, Others please mention text box
+
+Work Profile BPO/KPO , othersPLease mention textbox
+Work profile aspiring for software development Engineer, IT support engineer, Network Administrator, Manual Quality Analyst, Automation Quality Analyst, Tools Specialist
+
+Is the experienc e in software industry ? 
+Coding Background (Please select more than one language) C/C++ , Java, PHP, Python
+Work profile aspiring for software development Engineer, IT support engineer, Network Administrator, Manual Quality Analyst, Automation Quality Analyst, Tools Specialist

@@ -1,0 +1,160 @@
+18.188.21.82
+
+ec2-13-58-141-99.us-east-2.compute.amazonaws.com
+
+
+
+INSTALL DRUPAL CMS ON UBUNTU 16.04 LTS WITH NGINX, MARIADB, PHP 7.1 AND LET’S ENCRYPT SSL/TLS
+!robot | 01/11/2018 | Applications, Labs, Linux Ubuntu | No Comments
+If WordPress is not meeting your needs, Drupal might… It’s a content management system that allows webmasters and designers to create dynamic PHP based websites and apps…
+
+Drupal is a powerful and popular CMS use by many webmasters to create powerful websites and blogs. For those webmasters and website owners looking to run and manage dynamic, PHP-based websites and blogs easily may want to take a look at Drupal CMS.
+
+In today’s environments, Drupal is frequently being installed with SSL/TLS encryption so that all traffic to and from the website is protected over HTTPS. Also, websites that use HTTPS may rank better with Google and other search engine providers.
+
+This brief tutorial is going to show students and new users how to install Drupal on Ubuntu 16.04 LTS with Nginx, MariaDB, PHP and Let’s Encrypt support. When you’re done, your website will automatically be configured to use HTTPS for all traffic.
+
+To get started with installing Drupal with Let’s Encrypt support, follow the steps below:
+
+STEP 1: INSTALL NGINX
+Drupal requires a webserver to function and the second most popular webserver in used today is Nginx. So, go and install Nginx on Ubuntu by running the commands below:
+
+sudo apt install nginx
+
+Next, run the commands below to stop, start and enable Nginx service to always start up with the server boots.
+
+sudo systemctl stop nginx.service
+sudo systemctl start nginx.service
+sudo systemctl enable nginx.service
+STEP 2: INSTALL MARIADB
+Drupal also requires a database server to function.. and MariaDB database server is a great place to start. To install it run the commands below.
+
+sudo apt-get install mariadb-server mariadb-client
+
+After installing, the commands below can be used to stop, start and enable MariaDB service to always start up when the server boots.
+
+sudo systemctl stop mysql.service
+sudo systemctl start mysql.service
+sudo systemctl enable mysql.service
+After that, run the commands below to secure MariaDB server.
+
+sudo mysql_secure_installation
+
+When prompted, answer the questions below by following the guide.
+
+Enter current password for root (enter for none): Just press the Enter
+Set root password? [Y/n]: Y
+New password: Enter password
+Re-enter new password: Repeat password
+Remove anonymous users? [Y/n]: Y
+Disallow root login remotely? [Y/n]: Y
+Remove test database and access to it? [Y/n]:  Y
+Reload privilege tables now? [Y/n]:  Y
+Restart MariaDB server
+
+sudo systemctl restart mysql.service
+
+STEP 3: INSTALL PHP 7.1-FPM AND RELATED MODULES
+PHP 7.1 isn’t available on Ubuntu default repositories… in order to install it, you will have to get it from third-party repositories.
+
+Run the commands below to add the below third party repository to upgrade to PHP 7.1
+
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+Then update and upgrade to PHP 7.1
+
+sudo apt update
+
+Run the commands below to install PHP 7.1 and related modules.
+
+sudo apt install php7.1-fpm php7.1-common php7.1-mbstring php7.1-xmlrpc php7.1-soap php7.1-gd php7.1-xml php7.1-intl php7.1-mysql php7.1-cli php7.1-mcrypt php7.1-ldap php7.1-zip php7.1-curl
+
+After install PHP, run the commands below to open Nginx PHP default file.
+
+sudo nano /etc/php/7.1/fpm/php.ini
+
+Then change the following lines below in the file and save. You may increase the value to suite your environment.
+
+max_execution_time = 180
+max_input_time = 60
+memory_limit = 256M
+upload_max_file_size = 64M
+cgi.fix_pathinfo = 0
+STEP 4: CREATE DRUPAL DATABASE
+Now that you’ve install all the packages that are required, continue below to start configuring the servers. First run the commands below to create Drupal database.
+
+Run the commands below to logon to the database server. When prompted for a password, type the root password you created above.
+
+sudo mysql -u root -p
+
+Then create a database called drupal
+
+CREATE DATABASE drupal;
+
+Create a database user called drupaluser with new password
+
+CREATE USER 'drupaluser'@'localhost' IDENTIFIED BY 'new_password_here';
+
+Then grant the user full access to the database.
+
+GRANT ALL ON drupal.* TO 'drupaluser'@'localhost' IDENTIFIED BY 'user_password_here' WITH GRANT OPTION;
+
+Finally, save your changes and exit.
+
+FLUSH PRIVILEGES;
+EXIT;
+STEP 5: DOWNLOAD DRUPAL LATEST RELEASE
+Next, visit Drupal site and download the latest package…. or run the commands below to download and extract Drupal content.
+
+After downloading, run the commands below to extract the downloaded file and move it into a new Drupal root directory.
+
+cd /tmp && cd /tmp && wget https://ftp.drupal.org/files/projects/drupal-8.4.2.tar.gz
+tar -zxvf drupal*.gz
+sudo mv drupal-8.4.2 /var/www/html/drupal
+Then run the commands below to set the correct permissions for Drupal to function properly.
+
+sudo chown -R www-data:www-data /var/www/html/drupal/
+sudo chmod -R 755 /var/www/html/drupal/
+STEP 6: CONFIGURE NGINX DRUPAL SITE
+Finally, configure Nginx configuration file for Drupal. This file will control how users access Drupal content. Run the commands below to create a new configuration file called drupal
+
+sudo nano /etc/nginx/sites-available/drupal
+
+Then copy and paste the content below into the file and save it. Replace the highlighted line with your own domain name and directory root location.
+
+server {
+    listen 80;
+    listen [::]:80;
+    root /home/codebase/env/dev/job4all;
+    index  index.php index.html index.htm;
+    server_name  job4all.online;
+
+    location / {
+    try_files $uri /index.php?$query_string;        
+    }
+
+    location @rewrite {
+               rewrite ^/(.*)$ /index.php?q=$1;
+        }
+
+    location ~ [^/]\.php(/|$) {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ ^/sites/.*/files/styles/ { # For Drupal >= 7
+               try_files $uri @rewrite;
+        }
+
+    location ~ ^(/[a-z\-]+)?/system/files/ { # For Drupal >= 7
+        try_files $uri /index.php?$query_string;
+        }
+}
+
+sudo wget https://ftp.drupal.org/files/projects/drupal-7.56.tar.gz
+
+
+
+

@@ -1,0 +1,79 @@
+debopriyo.verified
+TestAccountDebo
+
+app.listen() has 4 properties port, host, backlog (total numbewr of opened queus) and callback(callback function)
+A special method, all, is provided by Express to handle all types of http methods at a particular route using the same function.This method is generally used for defining 
+middleware,
+app.method(path,handler) ->method(get,post,put and delete),path is the route, handler is the callback function.
+ To separate the routes from our main index.js file, we will use Express.Router.
+ 
+ to use separate routing file from the one containing all the logic use Express.router in a separate file and then export the file from the router and require the file in the
+ main file and app.use(subpath, req_var_name)
+ 
+ dynamic routing  dynamic routing can be used using 
+ 
+Middleware functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s
+ request-response cycle. These functions are used to modify req and res objects for tasks like parsing request bodies, adding response headers, etc.
+ 
+ app.use is used to utilize the middleware and trhen pass the function needs to be excuted 
+ app.use(function(req, res,next){
+ ......;
+ next(); //to pass the control to the subsequesnt middleware
+ });
+ 
+ middleware learn by heart
+ 
+ templating engine pug
+ 
+npm install --save pug
+in index.js -> app.set('view engine', 'pug');
+				app.set('views', './views);
+				
+				form data
+				
+				var express = require('express');
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var upload = multer();
+var app = express();
+
+app.get('/', function(req, res){
+   res.render('form');
+});
+
+app.set('view engine', 'pug');
+app.set('views', './views');
+
+// for parsing application/json
+app.use(bodyParser.json()); 
+
+// for parsing application/xwww-
+app.use(bodyParser.urlencoded({ extended: true })); 
+//form-urlencoded
+
+// for parsing multipart/form-data
+app.use(upload.array()); 
+app.use(express.static('public'));
+
+app.post('/', function(req, res){
+   console.log(req.body);
+   res.send("recieved your request!");
+});
+app.listen(3000);
+
+html
+html
+   head
+      title Form Tester
+   body
+      form(action = "/", method = "POST")
+         div
+            label(for = "say") Say:
+            input(name = "say" value = "Hi")
+         br
+         div
+            label(for = "to") To:
+            input(name = "to" value = "Express forms")
+         br
+         button(type = "submit") Send my greetings
+ 

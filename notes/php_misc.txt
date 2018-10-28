@@ -1,0 +1,37 @@
+pdo
+PHP DATA OBJECTS, LEAN AND CONSITENT WAY TO ACCESS DB INSTEAD mYSQLI
+
+three main classes -
+PDO represents a connection between PHP and DB
+PDOStatement represents a prepared statement and after execution associated reult
+PDOException represents error raised by PDO
+
+DSN is data source name , string containg database credentials
+for query use query method or prepared statements
+for passing vars we will use prepared statements
+
+elastic loadbalancer never has ipv4or6 adress  instead of using Adress record we use alias record
+CloudFront delivers the content directly from the origin server and stores it in the cache of the edge location
+Composition is an important concept in PHP. It occurs when an object creates another object; that is, the first object completely possesses the second object.
+
+JWT is a type of Token, and OAuth is a Framework that describes how to dispense tokens. JWT can absolutely be used as an OAuth Bearer token
+
+
+FRAPI
+FRAPI aims at removing the whole frontend layer complexity that handling REST calls can bring.
+
+APC
+APC stands for the Alternative PHP Cache. PHP is a dynamic language that is compiled on-demand into bytecode at execution time. 
+To improve performance, APC stores this bytecode so that it can be reused instead of having to be recompiled each time.
+ is a free open-source opcode (operation code) caching plugin for PHP. 
+ Another common caching module is Memcached, and the main difference between it and APC is that Memcached is distributed and more robust generic caching platform,
+ while APC is specific to PHP. APC is great when you need local caching of objects for your PHP scripts that are relatively small and frequently accessed
+ 
+ Which PHP mode? Apache vs CGI vs FastCGI
+ One of the main use-cases of FastCGI proxying within Nginx is for PHP processing. Unlike Apache, which can handle PHP processing directly with the use of the mod_php module, Nginx must
+ rely on a separate PHP processor to handle PHP requests. Most often, this processing is handled with php-fpm, a PHP processor that has been extensively tested to work with Nginx.
+ https://www.digitalocean.com/community/tutorials/understanding-and-implementing-fastcgi-proxying-in-nginx
+ 
+  sudo apt install sendmail
+  
+  

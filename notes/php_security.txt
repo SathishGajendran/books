@@ -1,0 +1,54 @@
+security in php
+
+turning off register_globals to off in php.ini
+turning off error_reporting to 0 through php.ini of htaccess(is a configuration file used by Apache-based web servers that controls the directory that it "lives" in--as well as 
+all the subdirectories underneath that directory.  Also helps to create Custom Error Pages for Better SEO)
+
+mysql injection 
+function make_safe($variable) {
+    $variable = mysql_real_escape_string(trim($variable));
+    return $variable;
+}
+
+File Manipulation
+By changing the URL, on some systems, to reference a file on another server, they could even run PHP that they have written on your site. Scared? You should be. 
+Fortunately, again, this is reasonably easy to protect against. First, make sure you have correctly set "open_basedir" in your php.ini file, and have set "allow_url_fopen" to "off".
+ That will prevent most of these kinds of attacks by preventing the inclusion of remote files and system files.Next, if you can, check the file requested against a list of valid files.
+ If you limit the files that can be accessed using this script, you will save yourself a lot of aggravation later.
+ 
+ 
+ stop using default username password while installing mysql
+ 
+ Leaving Installation Files Online
+ 
+ Never, ever, give a file the extension ".inc". If you must have ".inc" in the extension, use the extension ".inc.php", as that will ensure the file is processed by the PHP engine 
+ (meaning that anything like a username and password is not sent to the user). Always make sure your includes folder is outside your web root, and not named something obvious.
+ Always make sure you add a blank file named "index.html" to all folders like include or image folders - even if you deny directory listing yourself, you may one day change hosts,
+ or someone else may alter your server configuration - if directory listing is allowed ,then your index.html file will make sure the user always receives a blank page rather than the 
+ directory listing. As well, always make sure directory listing is denied on your web server 
+ 
+ login : recaptcha, disabble login after ceratin number of failed logins, ipaddress blocking for users with repeated failed logins
+ 
+ soft delete in stead of hard delete
+ 
+  Not using eval() is a good start. However, the php.ini file gives you a way to completely disable certain functions in PHP - "disable_functions". This directive of the php.ini 
+  file takes a comma-separated list of function names, and will completely disable these in PHP. Commonly disabled functions include ini_set(), 
+  exec(), fopen(), popen(), passthru(), readfile(), file(), shell_exec() and system().
+  
+  use strip_tag for html
+  
+  cross sitev request forgery
+  
+   CSRF is a form of attack where an authenticated user performs an action on a site without knowing it.
+   
+   character encoding 
+   The solution is to always always use mysql_real_escape_string() rather than addslashes() (or use prepared statements / stored procedures), and to explicitly state character
+   sets at all stages of interaction. Ideally, use the same character 
+   set throughout your system (UTF-8 is recommended) and where PHP allows you to specify a character encoding for a function (e.g., htmlspecialchars() or htmlentities()), make use of it.
+   
+   
+   Security refers to measures put in place to protect an application from accidental and malicious attacks.
+strip_tags function is used to remove tags such as <script></script> from input data
+filter_var function validates and php sanitize input data
+mysql_real_escape_string is used to sanitize SQL statement. It removes malicious characters from the statements
+both MD5 and SHA1 are used to encrypt password.

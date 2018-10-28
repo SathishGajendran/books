@@ -1,0 +1,294 @@
+ javascript oops
+ 
+ javascript lacks class grouping like packages
+ functionas are represtated as object in javascript which makes them fdirst class functions
+ there are two types primitive types and reference types
+ Primitive types are stored as simple data types. Reference types are stored as objects, which are really just references to locations in memory.
+ primitive types are stored in the variable object while refernce types are stored as pointers in the  varible object. pointers are nothing but the address of the memory where the object is stored
+ primitive types are boolean number string null and undefined
+ typeof is used determine what is the type of primitive object.it works on all the primitive types except null where it returns 'object'
+ null is determined by comparing the varible content to null directly without coercing it into other type 
+ primitive types like number boolean and string has their own methods to work with.although they are not objects 
+ 
+ reference types are synonymous to objects in js .reference values are instances of reference types
+ an object is an unoredered list of properties consisting of a name and a value. when the value of a property is function it is known as methods
+ while instantiating an object with a constructor function the variable stores the reference of the object in it.
+ js is a garbage collector language.so it is required to derefence an object by setting the value to null
+ properties can be added in js objects during runtime
+ builtin types(built in object types) array, date,error, function,object, regexp
+built in thypes can be instantiated using 'new' 
+var arra= new Array()
+a literal syntax allowa you to define reference values without explicitly creating an object with new and constructor function
+
+function literal is always used rather than instantiating function with new key word
+
+var reflect = new Function("value", "return value;"); is equivalent to function reflect(value){return value;}(declaration)
+||var red = function(val,val2){return val1+val2;};(expression/anonymous functions)
+
+property access ;: array.push(12345) ===array["push"](12345)
+the second syntax is helpful when we have to dynamically decide which property to access. 
+beracket notatin allows us to use special character
+
+apart from "function" builtin type "typeof" returns "object" for all other datatype
+instanceof operator can identify inherited datatypes(builtin types as all of them are inherited from object) 
+
+primitive wrapper types when we delare variable of any of the three primitive datatypes js creates an object of the same for one step only to operate dot notations this is know as autoboxing
+temporary object through primitivwe wrapper is created only when the value is read
+
+In addition, you can’t use String, Number, and Boolean objects as you
+would primitive values. For example, the following code uses a Boolean
+object. The Boolean object is false, yet console.log("Found") still executes
+because an object is always considered true inside a conditional statement.
+It doesn’t matter that the object represents false; it’s an object, so it evaluates
+to true.
+
+functions are distinguished from the other built in types by the presence of the internal property called [[call]]
+internal properties are not accessible from code but it defines the behavior of code as it executes
+
+expressions are also known as anonymous functions
+
+decalrations ->functions defined in this way can be defined even after the function has been used
+Function hoisting happens only for function declarations because
+the function name is known ahead of time. Function expressions, on the
+other hand, cannot be hoisted because the functions can be referenced
+only through a variable.
+
+sort() converts every item in an array to a string and then performs a comparison. That means you can’t accurately sort an array of numbers without specifying a comparison function. 
+For example, you need to include a comparison function to accurately sort an array of numbers,
+such as:
+	var numbers = [ 1, 5, 8, 4, 7, 10, 2, 6 ];
+	numbers.sort(function(first, second) {
+		return first - second;
+	});
+	console.log(numbers); // "[1, 2, 4, 5, 6, 7, 8, 10]"
+	numbers.sort();
+	console.log(numbers); // "[1, 10, 2, 4, 5, 6, 7, 8]"
+	
+number of parameters in a function is saved in the length property of a function. function_name.length shows the number of property associated with the function
+parameters can be passed as named arguments or like arguments[i]
+oveloading is the ability of a function to have multiple signatures
+js doesnot support function overloading.it will take the last function declared and show the result accordingly
+
+altering "this"
+
+call():which executes the function with a particular this value and with specific parameters.The first parameter of call() is the value to which this should be equal
+when the function is executed. All subsequent parameters are the parameters that should be passed into the function.
+		function sayNameForAll(label) {
+		console.log(label + ":" + this.name);
+		}
+		var person1 = {
+		name: "Nicholas"
+		};
+		var person2 = {
+		name: "Greg"
+		};
+		var name = "Michael";
+		sayNameForAll.call(this, "global"); // outputs "global:Michael"
+		sayNameForAll.call(person1, "person1"); // outputs "person1:Nicholas"
+		sayNameForAll.call(person2, "person2"); // outputs "person2:Greg"
+		
+		
+apply() method works exactly the same as call() except that it accepts only two parameters: the value for this and an array or array-like object of parameters to pass to the function
+ (that means you can use an arguments object as the second parameter). So, instead of individually naming each parameter using call(), you can easily pass arrays to apply() as the second
+argument. Otherwise, call() and apply() behave identically.
+
+		function sayNameForAll(label) {
+		console.log(label + ":" + this.name);
+		}
+		var person1 = {
+		name: "Nicholas"
+		};
+		var person2 = {
+		name: "Greg"
+		};
+		var name = "Michael";
+		sayNameForAll.apply(this, ["global"]); // outputs "global:Michael"
+		sayNameForAll.apply(person1, ["person1"]); // outputs "person1:Nicholas"
+		sayNameForAll.apply(person2, ["person2"]); // outputs "person2:Greg"
+		
+bind() : The first argument to bind() is the this value for the new function. All other arguments represent named parameters that should be permanently set in the new function.
+you can still pass in any parameters that aren’t permanently set later.
+		function sayNameForAll(label) {
+		console.log(label + ":" + this.name);
+		}
+		var person1 = {
+		name: "Nicholas"
+		};
+		var person2 = {
+		name: "Greg"
+		};
+		// create a function just for person1
+		u var sayNameForPerson1 = sayNameForAll.bind(person1);
+		sayNameForPerson1("person1"); // outputs "person1:Nicholas"
+		// create a function just for person2
+		v var sayNameForPerson2 = sayNameForAll.bind(person2, "person2");
+		sayNameForPerson2(); // outputs "person2:Greg"
+		// attaching a method to an object doesn't change 'this'
+		w person2.sayName = sayNameForPerson1;
+		person2.sayName("person2"); // outputs "person2:Nicholas"
+
+
+
+
+JavaScript are dynamic, meaning that they can change at any point during code execution. Whereas class-based languages lock down objects
+based on a class definition, JavaScript objects have no such restrictions.
+When a property is first added to an object, JavaScript uses an internal method called [[Put]] on the object.
+When a new value is assigned to an existing property, a separate operation called [[Set]] takes place. This operation replaces the current value of the property with the new one
+ dont check for the property in an object with if 
+ if(person.name) because it returns false if the property is their but the value is null,undefined,o. instead use "in". 
+		 var person1 = {
+		name: "Nicholas",
+		sayName: function() {
+		console.log(this.name);
+		}
+		};
+		console.log("sayName" in person1);
+the "in" checks for both own property and prototype property. so use hasOwnProperty() which checks for own poerty of an object. person.hasOwnProperty('name')
+deleting property of an object. setting a value of a property to 'null' calls [[set]] and sets the value of the property to 'null'. instead call delete, which inturn calls [[delete]]
+ and deletes the internal property. delete objectname.property_name.
+ attempting to access a property that doesnot access will just return undefined.
+ 
+ By default the properties that are added to an object are enumerable that means it can be iterated by using for-in loop or Object.Key(object_name).
+ 
+Enumerable properties have their internal [[Enumerable]] attributes set to true
+		var property;
+		for (property in object)
+		{console.log('property_name' + property);
+		console.log('property_value' + object[property]);}
+to retrieve the properties in array format we use object.keys() notations
+		var properties = Object.keys(object);
+		var i,len;
+		for(i=0,len=properties.length;i<len;i++)
+		{
+			console.log('name'+ properties[i]);
+			console.log('values' + object[properties[i]]);
+			)
+		}
+use Object.keys() in situations where you want to operate on an array of property names and for-in when you don’t need an array.
+The for-in loop also enumerates prototype properties, while Object.keys() returns only own (instance) properties
+
+Most of the native method of an objects are not enumerable. and the [[enumerable]] property set to false.
+to check whether a propety is enumerable we use propertyIsEnumerable(); object_name.propertyIsEnumerable('name of property')
+There are two different types of properties : data properties and accessor properties. by default [[put]] creates data properties.
+accessor properties dont contain a value instead contains a method to call when the value is read (getter) and setter method to call when the value is written to
+	var name = {
+		'	_name = 'debo';
+	};
+	get name(){
+		return this._name;
+	}
+	set name(value){
+		this._name = value;
+	}
+accessor properties either needs getter or setter to work.if only getter is set then property becomes read-only whereas only setter causes the property to become write-only.
+
+There are two property attributes shared between data and accessor properties. One is [[Enumerable]], which determines whether you can iterate over the property. The other is
+[[Configurable]], which determines whether the property can be changed. You can remove a configurable property using delete and can change its attributes at any time. (This also
+means configurable properties can be changed from data to accessor properties and vice versa.) By default, all properties you declare on an object are both enumerable and configurable
+
+If you want to change property attributes, you can use the Object .defineProperty() method. This method accepts three arguments: the object that owns the property, the property name, 
+and a property descriptor object containing the attributes to set. The descriptor has properties with the same name as the internal attributes but without the square
+brackets. So you use enumerable to set [[Enumerable]], and configurable to set [[Configurable]].
+length() -> only shows the number of enumerable property an object has
+		
+		var person1 = {
+			name: "Nicholas"
+		};
+		Object.defineProperty(person1, "name", {
+			enumerable: false
+		});
+		console.log("name" in person1); // true
+			console.log(person1.propertyIsEnumerable("name")); // false
+		var properties = Object.keys(person1);
+		console.log(properties.length); // 0
+		Object.defineProperty(person1, "name", {
+			configurable: false
+		});
+		// try to delete the Property
+		delete person1.name;
+			console.log("name" in person1); // true
+		console.log(person1.name); // "Nicholas"
+			Object.defineProperty(person1, "name", { // error!!!
+		configurable: true
+		});
+When JavaScript is running in strict mode, attempting to delete a nonconfigurable property results in an error. In nonstrict mode, the operation silently fails.	
+Data properties possess two additional attributes that accessors do not.
+The first is [[Value]], which holds the property value. This attribute is filled in automatically when you create a property on an object. All property values are stored in [[Value]],
+even if the value is a function. The second attribute is [[Writable]], which is a Boolean value indicating whether the property can be written to. By default, all properties are
+writable unless specified otherwise.
+
+		var person1 = {};
+		Object.defineProperty(person1, "name", {
+			value: "Nicholas",
+			enumerable: true,
+			configurable: true,
+			writable: true
+		});
+When you are defining a new property with Object.defineProperty(), it’s important to specify all of the attributes because Boolean attributes automatically default to false otherwise
+
+Accessor properties also have two additional attributes. Because there is no value stored for accessor properties, there is no need for [[Value]] or [[Writable]]. Instead, accessors
+have [[Get]] and [[Set]], which contain the getter and setter functions, respectively. As with the object literal form of getters and setters, you need only define one of these
+attributes to create the property.
+As with accessor properties defined via object literal notation, an accessor property without a setter throws an error in strict mode when you try to change the value. In
+nonstrict mode, the operation silently fails. Attempting to read an accessor property that has only a setter defined always returns undefined
+
+It’s also possible to define multiple properties on an object simultaneously if you use Object.defineProperties() instead of Object.defineProperty().
+to fetch property attributes we use object.getOwnPropertyDescriptor('objectnema','propertyname')
+		var person1 = {
+			name: "Nicholas"
+		};
+		var descriptor = Object.getOwnPropertyDescriptor(person1, "name");
+		console.log(descriptor.enumerable); // true
+		console.log(descriptor.configurable); // true
+		console.log(descriptor.writable); // true
+		console.log(descriptor.value); // "Nicholas"
+		
+Objects, just like properties, have internal attributes that govern their behavior. One of these attributes is [[Extensible]], which is a Boolean value indicating if the object itself
+can be modified. All objects created are extensible by default, meaning new properties can be added to the object at any time.
+
+Preventing object modification
+One way to create a nonextensible object is with Object.preventExtensions(). This method accepts a single argument, which is the object you want to make nonextensible. Once you use
+this method on an object, you’ll never be able to add any new properties to it again. You can check the value of [[Extensible]] by using Object.isExtensible().
+
+object sealing : use the Object.seal() method on an object to seal it. When that happens, the [[Extensible]] attribute is set to false, and all properties have their [[Configurable]]
+ attribute set to false
+ freezing object : The last way to create a nonextensible object is to freeze it. If an object is frozen, you can’t add or remove properties, you can’t change properties’
+types, and you can’t write to any data properties. In essence, a frozen object is a sealed object where data properties are also read-only. Frozen objects can’t become unfrozen,
+so they remain in the state they were in when they became frozen. You can freeze an object by using Object.freeze() and determine if an object is frozen by using Object.isFrozen().
+
+
+A constructor is simply a function that is used with new to create an object.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

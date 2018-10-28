@@ -1,0 +1,37 @@
+explain event delegation
+js event fires not only on the single dom element but also on all of its descendents
+Event delegation refers to the process of using event propagation (bubbling) to handle events at a higher level in the DOM than the element on which the event originated.
+ It allows us to attach a single event listener for elements that exist now or in the future.
+ 
+ event bubbling
+ events on an element will bubble up and and also fire on all parents
+ 
+ editing in a live form  can be handled using event delegation
+ 
+ difference between target and current target
+ current target is the element u have attached the event listner to 
+ target is the element that triggered the event
+ 
+ 
+ explain why the following doesnt work as iife(immediately invoked function expression)
+ function foo(){
+ //code
+ }();
+ 
+ IIFE (It is a design pattern which is also known as Self-Executing Anonymous Function and contains two major parts. The first is the anonymous function with lexical scope enclosed 
+ within the Grouping Operator (). This prevents accessing variables within the IIFE idiom as well as polluting the global scope.) (function foo(){}();)
+ 
+ why in a general , it is good idea to leave the global scoope of a website as is and never touch it?
+ reduce collision, maintain independence,easier to write your own code
+ 
+ explain hoisting
+ const and let are way of declaring variables tht are not hoisted
+ 
+ variable hoisting
+ 
+ difference between a variable that is null, undefined and undeclared
+ 
+ difference between var and let
+ let has block scope.let does not get hoisted var has function scope.var gets hoisted
+ difference between const and let
+ const cant be assigned value after the first value

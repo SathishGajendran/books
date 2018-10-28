@@ -1,0 +1,19 @@
+dns is used to convert human friendlyv domain name to ip address
+two diff type ipv4 and ipv6. ipv4 is 32 b it and ipv6 is 128 bit
+
+SOA Records
+name of the server that supplied data dor zone
+ythe admin for the zone
+current version of data file
+secondary name server should wait b4 checking for updates
+	secondary name server should wait beforeretrying a failed zone transfer
+	default number of seconds
+
+name server recordsused by top level domain servers to directtraffic to the content DNS server
+
+A record is fundamental type of DNS and the A in A record stands for address used to translate domain to ip address
+
+SNS is a distributed publish-subscribe system. Messages are pushed to subscribers as and when they are sent by publishers to SNS. SQS is distributed queuing system. Messages are NOT pushed
+ to receivers. Receivers have to poll SQS to receive messages. Messages can't be received by multiple receivers at the same time. Any one receiver can receive a message, process and delete it.
+ Other receivers do not receive the same message later. Polling inherently introduces some latency in message delivery in SQS unlike SNS where messages are immediately
+ pushed to subscribers. SNS supports several end points such as email, sms, http end point and SQS. If you want unknown number and type of subscribers to receive messages, you need SNS.
