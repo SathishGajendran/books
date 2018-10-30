@@ -1,0 +1,140 @@
+sudo apt-get update
+sudo apt-get install nginx
+sudo ufw app list
+sudo ufw allow 'Nginx Full'
+sudo ufw status
+systemctl status nginx
+sudo apt-get install curl
+sudo systemctl stop nginx sudo systemctl start nginx sudo systemctl restart nginx
+
+sudo systemctl enable nginx
+
+
+Server configuration
+/etc/nginx: The Nginx configuration directory. All of the Nginx configuration files reside here.
+/etc/nginx/nginx.conf: The main Nginx configuration file. This can be modified to make changes to the Nginx global configuration.
+/etc/nginx/sites-available/: The directory where per-site "server blocks" can be stored. Nginx will not use the configuration files found in this directory unless they are linked to the sites-enabled directory (see below). Typically, all server block configuration is done in this directory, and then enabled by linking to the other directory.
+/etc/nginx/sites-enabled/: The directory where enabled per-site "server blocks" are stored. Typically, these are created by linking to configuration files found in the sites-available directory.
+/etc/nginx/snippets: This directory contains configuration fragments that can be included elsewhere in the Nginx configuration. Potentially repeatable configuration segments are good candidates for refactoring into snippets.
+
+server logs
+/var/log/nginx/access.log: Every request to your web server is recorded in this log file unless Nginx is configured to do otherwise.
+/var/log/nginx/error.log: Any Nginx errors will be recorded in this log.
+
+
+
+installing Drupal (PHP 7.x + NGINX)
+
+sudo apt-get install php-apc php-pear php-cli php-common php-curl php-fpm php-gd php-mysql
+
+Configure sites-available/default eg. 
+server {
+    listen   80;
+    server_name  default;
+    access_log  /var/log/nginx/localhost.access.log;
+    error_log /var/log/nginx/error.log;
+
+    root /usr/share/nginx/html;
+    index index.php;
+
+## serve imagecache files directly or redirect to drupal if they do not exist.
+    location ~* files/styles {
+      access_log off;
+      expires 30d;
+      try_files $uri @drupal;
+    }
+
+## serve imagecache files directly or redirect to drupal if they do not exist.
+    location ~* ^.+.(xsl|xml)$ {
+      access_log off;
+      expires 1d;
+      try_files $uri @drupal;
+    }
+
+## Default location
+    location / {
+        try_files $uri $uri/ @drupal;
+        index  index.php;
+    }
+
+    location @drupal {
+        rewrite ^/(.*)$ /index.php?q=$1 last;
+    }
+
+## Images and static content is treated different
+    location ~* ^.+.(jpg|jpeg|gif|css|png|js|ico|xml)$ {
+      access_log        off;
+      expires           30d;
+    }
+
+## Parse all .php file in the /var/www directory
+    location ~ .php$ {
+        include fastcgi_params;
+        fastcgi_split_path_info ^(.+\.php)(.*)$;
+        fastcgi_pass   backend;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        fastcgi_param  SCRIPT_NAME      $fastcgi_script_name;
+        fastcgi_param  QUERY_STRING     $query_string;
+        fastcgi_param  REQUEST_METHOD   $request_method;
+        fastcgi_param  CONTENT_TYPE     $content_type;
+        fastcgi_param  CONTENT_LENGTH   $content_length;
+        fastcgi_intercept_errors        on;
+        fastcgi_ignore_client_abort     off;
+        fastcgi_connect_timeout 60;
+        fastcgi_send_timeout 180;
+        fastcgi_read_timeout 180;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 4 256k;
+        fastcgi_busy_buffers_size 256k;
+        fastcgi_temp_file_write_size 256k;
+    }
+
+## Disable viewing .htaccess & .htpassword
+    location ~ /\.ht {
+        deny  all;
+    }
+}
+
+upstream backend {
+        server 127.0.0.1:9000;
+}
+
+
+Copy code from backup to /var/www/html
+
+Go to browser and hit the ip address to look into the website
+
+Install Composer
+$ curl -sS https://getcomposer.org/installer | php
+$ sudo mv composer.phar /usr/local/bin/composer
+
+Install Drush 
+$ composer global require drush/drush:7.*
+
+Add the composer path to your path (in your *.bashrc* or *.zshrc* or other):
+export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+
+Change the existing mysql to mysqli
+
+Downloading a module using Drush
+drush dl modulename
+
+Enabling a module
+drush en modulename
+
+Enable backup migrate
+drush pm-releases backup_migrate
+
+to update drupal core
+drush pm-update drupal
+
+to access watchdog logs/dblogs
+drush ws
+
+to clear cache
+drush cc all
+
+
+
+
